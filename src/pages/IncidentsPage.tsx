@@ -6,7 +6,7 @@ import { useApp, useDispatch } from '../app/store';
 import { corridorById } from '../data/corridors';
 import MumbaiMap from '../components/map/MumbaiMap';
 import { MapControls } from '../components/map/MapChrome';
-import { SelectionDrawer } from '../components/SelectionDrawer';
+import { SelectionDrawer } from '../components/intelligence/SelectionDrawer';
 import { DemoTag, Empty } from '../components/ui/primitives';
 import { incidentPriority, recommendAction } from '../engine/trafficIntelligence';
 import { ago, clock, SEVERITY_RANK, toneFor } from '../utils/format';
