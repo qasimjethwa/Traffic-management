@@ -7,7 +7,7 @@ import { CORRIDORS, corridorById } from '../data/corridors';
 import { PLACES, placeById } from '../data/places';
 import MumbaiMap, { type RouteOverlay } from '../components/map/MumbaiMap';
 import { MapControls } from '../components/map/MapChrome';
-import { SelectionDrawer } from '../components/SelectionDrawer';
+import { SelectionDrawer } from '../components/intelligence/SelectionDrawer';
 import { AnimatedNumber, DemoTag } from '../components/ui/primitives';
 import { congestionLevel } from '../engine/congestionEngine';
 import { rerouteEstimate } from '../engine/trafficIntelligence';
