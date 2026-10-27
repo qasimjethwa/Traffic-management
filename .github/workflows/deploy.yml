@@ -30,6 +30,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Unit tests
+        run: npm test
+
       - name: Build
         env:
           # Project sites live at https://USER.github.io/REPO/ — use the repo name as base path.
@@ -39,6 +42,8 @@ jobs:
           # Optional, public browser keys (see .env.example). Leave unset to use keyless providers.
           VITE_STADIA_API_KEY: ${{ vars.VITE_STADIA_API_KEY }}
           VITE_OSRM_URL: ${{ vars.VITE_OSRM_URL }}
+          # Optional public URL of a deployed backend (see backend/README.md). Unset = static mode.
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
         run: npm run build
 
       - name: Configure Pages
