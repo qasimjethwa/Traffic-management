@@ -1,0 +1,484 @@
+{
+ "_note": "Shared by the frontend and the backend importer. Waypoints are hand-placed on real Mumbai roads; freeFlowMinutes/baseLoad/peakBias are SIMULATION assumptions only.",
+ "corridors": [
+  {
+   "id": "weh",
+   "name": "Western Express Highway",
+   "shortName": "WEH",
+   "routeCode": "L12",
+   "from": "Bandra (Kalanagar)",
+   "to": "Dahisar",
+   "waypoints": [
+    [
+     19.0595,
+     72.8492
+    ],
+    [
+     19.07,
+     72.852
+    ],
+    [
+     19.08,
+     72.8535
+    ],
+    [
+     19.0905,
+     72.8545
+    ],
+    [
+     19.101,
+     72.856
+    ],
+    [
+     19.113,
+     72.856
+    ],
+    [
+     19.125,
+     72.8565
+    ],
+    [
+     19.138,
+     72.858
+    ],
+    [
+     19.152,
+     72.859
+    ],
+    [
+     19.166,
+     72.86
+    ],
+    [
+     19.183,
+     72.862
+    ],
+    [
+     19.201,
+     72.864
+    ],
+    [
+     19.22,
+     72.866
+    ],
+    [
+     19.238,
+     72.866
+    ],
+    [
+     19.256,
+     72.868
+    ]
+   ],
+   "freeFlowMinutes": 24,
+   "baseLoad": 0.57,
+   "peakBias": "both",
+   "alternateId": "svr"
+  },
+  {
+   "id": "svr",
+   "name": "S.V. Road",
+   "shortName": "SV Rd",
+   "routeCode": "L14",
+   "from": "Bandra",
+   "to": "Borivali",
+   "waypoints": [
+    [
+     19.056,
+     72.836
+    ],
+    [
+     19.068,
+     72.8375
+    ],
+    [
+     19.081,
+     72.8395
+    ],
+    [
+     19.096,
+     72.842
+    ],
+    [
+     19.11,
+     72.844
+    ],
+    [
+     19.12,
+     72.846
+    ],
+    [
+     19.136,
+     72.848
+    ],
+    [
+     19.154,
+     72.849
+    ],
+    [
+     19.166,
+     72.849
+    ],
+    [
+     19.186,
+     72.848
+    ],
+    [
+     19.205,
+     72.85
+    ],
+    [
+     19.229,
+     72.856
+    ]
+   ],
+   "freeFlowMinutes": 38,
+   "baseLoad": 0.55,
+   "peakBias": "both",
+   "alternateId": "weh"
+  },
+  {
+   "id": "eeh",
+   "name": "Eastern Express Highway",
+   "shortName": "EEH",
+   "routeCode": "L15",
+   "from": "Sion",
+   "to": "Thane",
+   "waypoints": [
+    [
+     19.041,
+     72.864
+    ],
+    [
+     19.05,
+     72.874
+    ],
+    [
+     19.06,
+     72.888
+    ],
+    [
+     19.07,
+     72.901
+    ],
+    [
+     19.08,
+     72.913
+    ],
+    [
+     19.092,
+     72.921
+    ],
+    [
+     19.105,
+     72.929
+    ],
+    [
+     19.119,
+     72.934
+    ],
+    [
+     19.133,
+     72.939
+    ],
+    [
+     19.148,
+     72.945
+    ],
+    [
+     19.164,
+     72.951
+    ],
+    [
+     19.18,
+     72.957
+    ],
+    [
+     19.195,
+     72.963
+    ]
+   ],
+   "freeFlowMinutes": 26,
+   "baseLoad": 0.58,
+   "peakBias": "both",
+   "alternateId": "lbs"
+  },
+  {
+   "id": "lbs",
+   "name": "LBS Marg",
+   "shortName": "LBS",
+   "routeCode": "L24",
+   "from": "Kurla",
+   "to": "Mulund",
+   "waypoints": [
+    [
+     19.07,
+     72.88
+    ],
+    [
+     19.079,
+     72.892
+    ],
+    [
+     19.087,
+     72.905
+    ],
+    [
+     19.097,
+     72.915
+    ],
+    [
+     19.108,
+     72.925
+    ],
+    [
+     19.12,
+     72.929
+    ],
+    [
+     19.135,
+     72.932
+    ],
+    [
+     19.15,
+     72.937
+    ],
+    [
+     19.172,
+     72.948
+    ]
+   ],
+   "freeFlowMinutes": 34,
+   "baseLoad": 0.6,
+   "peakBias": "both",
+   "alternateId": "eeh"
+  },
+  {
+   "id": "jvlr",
+   "name": "Jogeshwari–Vikhroli Link Road",
+   "shortName": "JVLR",
+   "routeCode": "L18",
+   "from": "Jogeshwari",
+   "to": "Vikhroli",
+   "waypoints": [
+    [
+     19.136,
+     72.8575
+    ],
+    [
+     19.134,
+     72.868
+    ],
+    [
+     19.13,
+     72.879
+    ],
+    [
+     19.126,
+     72.89
+    ],
+    [
+     19.123,
+     72.9
+    ],
+    [
+     19.121,
+     72.912
+    ],
+    [
+     19.118,
+     72.924
+    ],
+    [
+     19.115,
+     72.933
+    ]
+   ],
+   "freeFlowMinutes": 16,
+   "baseLoad": 0.57,
+   "peakBias": "both"
+  },
+  {
+   "id": "sclr",
+   "name": "Santacruz–Chembur Link Road",
+   "shortName": "SCLR",
+   "routeCode": "L21",
+   "from": "Vakola",
+   "to": "Chembur",
+   "waypoints": [
+    [
+     19.078,
+     72.854
+    ],
+    [
+     19.074,
+     72.862
+    ],
+    [
+     19.071,
+     72.872
+    ],
+    [
+     19.07,
+     72.882
+    ],
+    [
+     19.066,
+     72.89
+    ],
+    [
+     19.062,
+     72.898
+    ]
+   ],
+   "freeFlowMinutes": 12,
+   "baseLoad": 0.5,
+   "peakBias": "both"
+  },
+  {
+   "id": "bwsl",
+   "name": "Bandra–Worli Sea Link + Coastal Road",
+   "shortName": "Sea Link",
+   "routeCode": "L01",
+   "from": "Bandra",
+   "to": "Marine Drive",
+   "waypoints": [
+    [
+     19.048,
+     72.823
+    ],
+    [
+     19.04,
+     72.817
+    ],
+    [
+     19.03,
+     72.815
+    ],
+    [
+     19.02,
+     72.816
+    ],
+    [
+     19.008,
+     72.814
+    ],
+    [
+     18.996,
+     72.811
+    ],
+    [
+     18.983,
+     72.81
+    ],
+    [
+     18.97,
+     72.808
+    ],
+    [
+     18.956,
+     72.813
+    ],
+    [
+     18.945,
+     72.822
+    ]
+   ],
+   "freeFlowMinutes": 14,
+   "baseLoad": 0.38,
+   "peakBias": "am",
+   "alternateId": "dadar-south"
+  },
+  {
+   "id": "dadar-south",
+   "name": "Dr. Annie Besant Rd / Tulsi Pipe Rd",
+   "shortName": "Worli–Dadar",
+   "routeCode": "L07",
+   "from": "Mahim",
+   "to": "Fort",
+   "waypoints": [
+    [
+     19.041,
+     72.841
+    ],
+    [
+     19.028,
+     72.845
+    ],
+    [
+     19.017,
+     72.844
+    ],
+    [
+     19.006,
+     72.835
+    ],
+    [
+     18.995,
+     72.83
+    ],
+    [
+     18.982,
+     72.825
+    ],
+    [
+     18.968,
+     72.822
+    ],
+    [
+     18.955,
+     72.828
+    ],
+    [
+     18.94,
+     72.835
+    ]
+   ],
+   "freeFlowMinutes": 28,
+   "baseLoad": 0.57,
+   "peakBias": "am",
+   "alternateId": "bwsl"
+  },
+  {
+   "id": "sion-panvel",
+   "name": "Sion–Panvel Highway",
+   "shortName": "Sion–Panvel",
+   "routeCode": "L32",
+   "from": "Chembur",
+   "to": "Vashi",
+   "waypoints": [
+    [
+     19.056,
+     72.902
+    ],
+    [
+     19.052,
+     72.915
+    ],
+    [
+     19.048,
+     72.93
+    ],
+    [
+     19.052,
+     72.945
+    ],
+    [
+     19.058,
+     72.96
+    ],
+    [
+     19.064,
+     72.976
+    ],
+    [
+     19.072,
+     72.992
+    ]
+   ],
+   "freeFlowMinutes": 15,
+   "baseLoad": 0.52,
+   "peakBias": "pm"
+  }
+ ]
+}
