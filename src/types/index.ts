@@ -162,7 +162,7 @@ export interface MetricPoint {
   passengers: number;
 }
 
-export type ViewId = 'live' | 'fleet' | 'routes' | 'analytics' | 'incidents' | 'maintenance' | 'operations';
+export type ViewId = 'live' | 'fleet' | 'routes' | 'analytics' | 'incidents' | 'maintenance' | 'operations' | 'data';
 
 export type Selection =
   | { kind: 'vehicle'; id: string }
