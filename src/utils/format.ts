@@ -1,3 +1,4 @@
+import { formatIST } from '../types/provenance';
 import type { Severity, VehicleStatus, VehicleType } from '../types';
 
 export const clock = (minute: number, withSec = false) => {
@@ -50,3 +51,12 @@ export const toneFor = (s: VehicleStatus | Severity | 'free' | 'moderate' | 'hea
 
 export const congestionColor = (score: number) =>
   score < 45 ? '#75C989' : score < 65 ? '#C9C46B' : score < 80 ? '#D9A45A' : '#F06464';
+
+/** Human-readable provenance of a corridor's drawn geometry. */
+export function geometryNote(source: 'osrm' | 'waypoints' | undefined, retrievedAt?: string, short = false) {
+  if (source === 'osrm') {
+    const when = retrievedAt ? formatIST(retrievedAt) : 'unknown date';
+    return short ? `OSM road geometry (OSRM) · imported ${when}` : `Road geometry from OpenStreetMap via OSRM, validated and imported ${when}`;
+  }
+  return short ? 'Approximate hand-placed waypoints' : 'Approximate hand-placed waypoints — not validated against the road network';
+}
