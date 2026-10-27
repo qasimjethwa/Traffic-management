@@ -11,6 +11,7 @@ const AnalyticsPage = lazy(() => import('../pages/AnalyticsPage'));
 const IncidentsPage = lazy(() => import('../pages/IncidentsPage'));
 const MaintenancePage = lazy(() => import('../pages/MaintenancePage'));
 const OperationsPage = lazy(() => import('../pages/OperationsPage'));
+const DataPage = lazy(() => import('../pages/DataPage'));
 
 function Toast() {
   const { toast } = useApp();
@@ -53,6 +54,7 @@ function Views() {
             {view === 'incidents' && <IncidentsPage />}
             {view === 'maintenance' && <MaintenancePage />}
             {view === 'operations' && <OperationsPage />}
+            {view === 'data' && <DataPage />}
           </Suspense>
         </motion.div>
       </AnimatePresence>
