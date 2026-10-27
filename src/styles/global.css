@@ -481,3 +481,18 @@ table.data tbody tr[aria-selected='true'] { background: rgba(255,255,255,0.06); 
 .bottom-strip[data-drawer='true'] { right: 408px; grid-template-columns: 1fr; }
 .bottom-strip[data-drawer='true'] .pv { display: none; }
 @media (max-width: 1180px) { .bottom-strip[data-drawer='true'] { display: none; } }
+
+/* ---------- Provenance badges ---------- */
+.dbadge { display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 6px; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; border: 1px solid; white-space: nowrap; vertical-align: middle; }
+.dbadge[data-kind='OBSERVED'] { color: #8fd5a0; border-color: rgba(117,201,137,0.45); background: rgba(117,201,137,0.1); }
+.dbadge[data-kind='ESTIMATED'] { color: #9cc3e8; border-color: rgba(111,168,220,0.45); background: rgba(111,168,220,0.1); }
+.dbadge[data-kind='FORECAST'] { color: #c7a8f0; border-color: rgba(170,130,230,0.45); background: rgba(170,130,230,0.1); }
+.dbadge[data-kind='SIMULATED'] { color: var(--warn); border-color: rgba(217,164,90,0.45); background: rgba(217,164,90,0.08); }
+.dbadge[data-kind='UNAVAILABLE'] { color: var(--text-3); border-color: var(--line-2); border-style: dashed; }
+.dbadge-stale { font-style: normal; color: var(--warn); }
+.data-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.data-grid .wide { grid-column: 1 / -1; }
+@media (max-width: 1024px) { .data-grid { grid-template-columns: 1fr; } }
+.kv-row { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13px; }
+.kv-row:first-child { border-top: 0; }
+.mode-banner { display: flex; gap: 10px; align-items: center; padding: 12px 16px; border-radius: 14px; border: 1px solid rgba(111,168,220,0.35); background: rgba(111,168,220,0.07); color: var(--text-2); font-size: 13px; margin-bottom: 14px; }

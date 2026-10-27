@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-27T15:22:11.967476Z",
+  "generatedBy": "backend: python -m app.cli import-corridors",
+  "datasets": [
+    {
+      "id": "corridors",
+      "file": "corridors.geojson",
+      "kind": "ESTIMATED",
+      "source": "osrm",
+      "sourceName": "OSRM road routing on OpenStreetMap",
+      "license": "Road data \u00a9 OpenStreetMap contributors, ODbL 1.0",
+      "attribution": "\u00a9 OpenStreetMap contributors (ODbL); routing by OSRM (project-osrm.org)",
+      "retrievedAt": "2026-10-27T15:22:07.908879Z",
+      "staleAfterSeconds": 7776000,
+      "records": 6,
+      "validation": {
+        "invalid": 3,
+        "errors": [
+          "jvlr: only 75% of reference waypoints lie within 500 m of the routed road",
+          "bwsl: only 20% of reference waypoints lie within 500 m of the routed road",
+          "sion-panvel: only 71% of reference waypoints lie within 500 m of the routed road"
+        ]
+      },
+      "notes": "Real OSM road geometry. Durations are free-flow estimates with no traffic. The public demo server is for light, non-production use."
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+# Local stack: PostGIS + backend API. (Not exercised in the authoring environment — no Docker daemon there.)
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_USER: mumbai_flow
+      POSTGRES_PASSWORD: mumbai_flow
+      POSTGRES_DB: mumbai_flow
+    ports: ["5432:5432"]
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mumbai_flow"]
+      interval: 5s
+      retries: 20
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      MF_DATABASE_URL: postgresql+psycopg://mumbai_flow:mumbai_flow@db:5432/mumbai_flow
+      MF_CORS_ORIGINS: http://localhost:5173,http://localhost:4173
+      MF_GOOGLE_MAPS_API_KEY: ${MF_GOOGLE_MAPS_API_KEY:-}
+    ports: ["8000:8000"]
+    depends_on:
+      db:
+        condition: service_healthy
+volumes:
+  pgdata:

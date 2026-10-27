@@ -12,18 +12,20 @@ import { AnimatedNumber, DemoTag } from '../components/ui/primitives';
 import { congestionLevel } from '../engine/congestionEngine';
 import { rerouteEstimate } from '../engine/trafficIntelligence';
 import { fetchRoute, type RouteResult } from '../services/routing/osrm';
-import { congestionColor, signed } from '../utils/format';
+import { congestionColor, geometryNote, signed } from '../utils/format';
+import { DataBadge } from '../components/ui/DataBadge';
 import { haversineKm } from '../utils/geo';
+import { formatIST } from '../types/provenance';
 import type { LatLng } from '../types';
 
 type RouteState =
   | { kind: 'idle' }
   | { kind: 'loading' }
-  | { kind: 'ok'; result: RouteResult }
+  | { kind: 'ok'; result: RouteResult; at: string }
   | { kind: 'error'; message: string; straight: LatLng[] };
 
 export default function RoutesPage() {
-  const { corridors, geometry, selection, fleet, geometrySource } = useApp();
+  const { corridors, geometry, selection, fleet, geometrySource, geometryRetrievedAt } = useApp();
   const dispatch = useDispatch();
   const [map, setMap] = useState<LeafletMap | null>(null);
   const [origin, setOrigin] = useState('bandra');
@@ -59,7 +61,7 @@ export default function RoutesPage() {
     setRoute({ kind: 'loading' });
     try {
       const result = await fetchRoute([a.position, b.position]);
-      setRoute({ kind: 'ok', result });
+      setRoute({ kind: 'ok', result, at: new Date().toISOString() });
     } catch (e) {
       setRoute({ kind: 'error', message: e instanceof Error ? e.message : 'Routing failed', straight: [a.position, b.position] });
     }
@@ -76,7 +78,7 @@ export default function RoutesPage() {
       <div className="page-head">
         <div>
           <h1>Route Intelligence</h1>
-          <p>Major Mumbai corridors ranked by simulated congestion. Pick a corridor to inspect it, run a reroute comparison, or plan an origin–destination route on real roads.</p>
+          <p>Major Mumbai corridors ranked by <b>simulated</b> congestion (demo mode). Pick a corridor to inspect it, run a reroute comparison, or plan an origin–destination route on real roads.</p>
         </div>
         <DemoTag />
       </div>
@@ -103,8 +105,8 @@ export default function RoutesPage() {
               {route.kind === 'ok' && (
                 <motion.div key="ok" className="facts" style={{ marginTop: 12 }} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
                   <div className="fact"><div className="k">Road distance</div><div className="v">{route.result.distanceKm.toFixed(1)} km</div></div>
-                  <div className="fact"><div className="k">OSRM drive time*</div><div className="v">{route.result.durationMin.toFixed(0)} min</div></div>
-                  <div className="source-note" style={{ gridColumn: '1/-1' }}>*Routing by OSRM on OpenStreetMap data. The estimate has no live traffic — it is not a congestion forecast.</div>
+                  <div className="fact"><div className="k">Free-flow drive time <DataBadge kind="ESTIMATED" /></div><div className="v">{route.result.durationMin.toFixed(0)} min</div></div>
+                  <div className="source-note" style={{ gridColumn: '1/-1' }}>Routing by OSRM on OpenStreetMap roads ({formatIST(route.at)}). Free-flow estimate with no live traffic — not a congestion forecast, not a live travel time.</div>
                 </motion.div>
               )}
               {route.kind === 'error' && (
@@ -146,7 +148,7 @@ export default function RoutesPage() {
                   {sel && (
                     <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} style={{ overflow: 'hidden' }} onClick={(e) => e.stopPropagation()}>
                       <div style={{ paddingTop: 8, display: 'grid', gap: 10 }}>
-                        <div className="source-note">Geometry: {geometrySource[c.id] === 'osrm' ? 'snapped to OSM roads via OSRM' : 'approximate hand-placed waypoints'}</div>
+                        <div className="source-note">Geometry: {geometryNote(geometrySource[c.id], geometryRetrievedAt[c.id])}</div>
                         {est ? (
                           <>
                             <button className="btn" style={{ justifySelf: 'start' }} onClick={() => (setRoute({ kind: 'idle' }), setReroute((r) => !r))}>
@@ -155,14 +157,14 @@ export default function RoutesPage() {
                             {reroute && (
                               <motion.div className="compare" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
                                 <div>
-                                  <div className="eyebrow">Baseline</div>
+                                  <div className="eyebrow">Baseline <DataBadge kind="SIMULATED" /></div>
                                   <div style={{ margin: '4px 0 8px' }}>{est.corridor.shortName}</div>
                                   <div className="big-num" style={{ fontSize: 30 }}><AnimatedNumber value={est.baseMinutes} />
                                     <span className="unit">min</span></div>
-                                  <div className="text-2" style={{ fontSize: 12, marginTop: 6 }}>Congestion {est.baseCongestion.toFixed(0)}/100</div>
+                                  <div className="text-2" style={{ fontSize: 12, marginTop: 6 }}>Simulated congestion {est.baseCongestion.toFixed(0)}/100</div>
                                 </div>
                                 <div className="alt">
-                                  <div className="eyebrow">Alternate</div>
+                                  <div className="eyebrow">Alternate <DataBadge kind="SIMULATED" /></div>
                                   <div style={{ margin: '4px 0 8px' }}>{est.alternate.shortName}</div>
                                   <div className="big-num" style={{ fontSize: 30 }}><AnimatedNumber value={est.altMinutes} />
                                     <span className="unit">min</span></div>
@@ -171,13 +173,13 @@ export default function RoutesPage() {
                                 <div style={{ gridColumn: '1/-1' }}>
                                   <div style={{ fontSize: 15 }}>
                                     {est.savingMinutes > 0 ? (
-                                      <span className="ok-t">Estimated {est.savingMinutes.toFixed(1)} min faster per trip</span>
+                                      <span className="ok-t">Simulation: {est.savingMinutes.toFixed(1)} min faster per trip under scenario assumptions</span>
                                     ) : (
                                       <span className="warn-t">Alternate is {signed(-est.savingMinutes)} min slower — rerouting not advised now</span>
                                     )}
                                   </div>
                                   <div className="source-note" style={{ marginTop: 6, lineHeight: 1.5 }}>
-                                    Demo estimate (engine/trafficIntelligence.ts): the baseline trip time is the corridor's simulated travel time; the alternate assumes a 10% longer detour at the alternate's current delay ratio, plus +8 congestion points from diverted traffic. Not a verified real-world outcome.
+                                    Simulated, assumption-based result — not measured traffic (engine/trafficIntelligence.ts): the baseline trip time is the corridor's simulated travel time; the alternate assumes a 10% longer detour at the alternate's current delay ratio, plus +8 congestion points from diverted traffic. Not a verified real-world outcome.
                                   </div>
                                 </div>
                               </motion.div>

@@ -1,0 +1,11 @@
+{
+  "_note": "Origin-destination pairs monitored by the journey-time collectors. Coordinates are approximate WGS84 points for real Mumbai localities (same points as src/data/places.ts).",
+  "od_pairs": [
+    { "id": "bandra-bkc", "name": "Bandra West → BKC", "origin": { "name": "Bandra West", "lat": 19.0596, "lon": 72.8295 }, "destination": { "name": "Bandra-Kurla Complex", "lat": 19.066, "lon": 72.8679 } },
+    { "id": "andheri-powai", "name": "Andheri → Powai", "origin": { "name": "Andheri", "lat": 19.1197, "lon": 72.8468 }, "destination": { "name": "Powai", "lat": 19.1176, "lon": 72.906 } },
+    { "id": "dadar-fort", "name": "Dadar → Fort / CSMT", "origin": { "name": "Dadar", "lat": 19.0178, "lon": 72.8478 }, "destination": { "name": "Fort / CSMT", "lat": 18.9398, "lon": 72.8355 } },
+    { "id": "worli-nariman", "name": "Worli → Nariman Point", "origin": { "name": "Worli", "lat": 19.0176, "lon": 72.817 }, "destination": { "name": "Nariman Point", "lat": 18.9256, "lon": 72.8242 } },
+    { "id": "kurla-thane", "name": "Kurla → Thane", "origin": { "name": "Kurla", "lat": 19.0726, "lon": 72.8845 }, "destination": { "name": "Thane", "lat": 19.1972, "lon": 72.964 } },
+    { "id": "chembur-vashi", "name": "Chembur → Vashi", "origin": { "name": "Chembur", "lat": 19.0622, "lon": 72.9005 }, "destination": { "name": "Vashi", "lat": 19.0771, "lon": 72.9986 } }
+  ]
+}

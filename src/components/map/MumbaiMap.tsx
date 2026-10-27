@@ -7,7 +7,7 @@ import { CORRIDORS } from '../../data/corridors';
 import { MMR_BOUNDS, MUMBAI_CENTER, MUMBAI_ZOOM, PLACES } from '../../data/places';
 import { TILES, usingStadia, type TileDef } from '../../services/map/tileProviders';
 import { corridorHeading, corridorPoint, slicePolyline } from '../../utils/geo';
-import { congestionColor, STATUS_LABEL, TYPE_LABEL } from '../../utils/format';
+import { congestionColor, geometryNote, STATUS_LABEL, TYPE_LABEL } from '../../utils/format';
 import { incidentIcon, labelIcon, pinIcon, stopIcon, vehicleIcon } from './markers';
 import { useStopDemand } from '../../hooks/useDerived';
 import type { LatLng, Vehicle } from '../../types';
@@ -109,7 +109,7 @@ function BaseLayers() {
 }
 
 const Corridors = memo(function Corridors() {
-  const { geometry, corridors, layers, selection, geometrySource } = useApp();
+  const { geometry, corridors, layers, selection, geometrySource, geometryRetrievedAt } = useApp();
   const dispatch = useDispatch();
   if (!layers.corridors) return null;
   return (
@@ -134,9 +134,11 @@ const Corridors = memo(function Corridors() {
               <Tooltip className="mf-tip" sticky>
                 <b>{c.name}</b> · {c.routeCode}
                 <br />
-                Congestion {st.congestion.toFixed(0)}/100 · {st.avgSpeed.toFixed(0)} km/h
+                Congestion {st.congestion.toFixed(0)}/100 · {st.avgSpeed.toFixed(0)} km/h (simulated)
                 <br />
-                <span style={{ opacity: 0.6 }}>{geometrySource[c.id] === 'osrm' ? 'Road geometry: OSRM' : 'Approximate waypoint geometry'} · simulated score</span>
+                <span style={{ opacity: 0.6 }}>{geometryNote(geometrySource[c.id], geometryRetrievedAt[c.id], true)}</span>
+                <br />
+                <span style={{ color: '#D9A45A' }}>Congestion & speed: SIMULATED</span>
               </Tooltip>
             </Polyline>
             <Polyline positions={line} pathOptions={{ color: 'rgba(255,255,255,0.7)', weight: 1.6, className: 'corridor-flow', interactive: false }} />
