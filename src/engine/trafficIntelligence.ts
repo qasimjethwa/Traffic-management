@@ -105,7 +105,7 @@ export function recommendAction(i: Incident, ctx: IntelligenceContext): string {
       if (!i.corridorId) return 'Monitor the location.';
       const est = rerouteEstimate(i.corridorId, ctx.corridors);
       if (est && est.savingMinutes > 1) {
-        return `Consider diverting ${est.corridor.routeCode} services via ${est.alternate.name}: est. ${est.savingMinutes.toFixed(0)} min saved per trip (demo estimate, ${est.baseCongestion.toFixed(0)} → ${est.altCongestionAfter.toFixed(0)} congestion).`;
+        return `Review diverting ${est.corridor.routeCode} services via ${est.alternate.name}. Simulation-only comparison: ~${est.savingMinutes.toFixed(0)} min/trip under scenario assumptions (simulated congestion ${est.baseCongestion.toFixed(0)} vs ${est.altCongestionAfter.toFixed(0)}); not a measured saving.`;
       }
       const c = ctx.corridors[i.corridorId];
       return `Alternate route offers no gain right now — request a signal-timing review at ${i.locationName} and post a ${Math.round(c.travelMinutes - corridorById(i.corridorId).freeFlowMinutes)} min delay advisory.`;
@@ -132,7 +132,7 @@ export function analyse(ctx: IntelligenceContext): Insight[] {
       reason: `Simulated congestion ${s.congestion.toFixed(0)} ≥ ${THRESHOLDS.congestionWarn} threshold${s.incidentLoad > 0 ? `; active incidents add ${(s.incidentLoad * 100).toFixed(0)} pts` : ''}.`,
       action:
         est && est.savingMinutes > 1
-          ? `Review diversion via ${est.alternate.shortName} — est. ${est.savingMinutes.toFixed(0)} min saved per trip (demo estimate).`
+          ? `Review diversion via ${est.alternate.shortName} — simulation suggests ~${est.savingMinutes.toFixed(0)} min/trip under scenario assumptions (not measured).`
           : 'Alternate offers no gain; issue a delay advisory and review signal timing.',
       severity: sevFromScore(s.congestion, THRESHOLDS.congestionWarn, THRESHOLDS.congestionCritical),
       priority: Math.round(s.congestion * 0.8),
