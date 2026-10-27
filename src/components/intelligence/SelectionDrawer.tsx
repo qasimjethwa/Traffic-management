@@ -6,7 +6,8 @@ import { useApp, useDispatch } from '../../app/store';
 import { corridorById, CORRIDORS, stopById } from '../../data/corridors';
 import { congestionLevel } from '../../engine/congestionEngine';
 import { incidentPriority, recommendAction, rerouteEstimate, vehiclePosition } from '../../engine/trafficIntelligence';
-import { ago, clock, congestionColor, signed, STATUS_LABEL, toneFor, TYPE_LABEL } from '../../utils/format';
+import { ago, clock, congestionColor, geometryNote, signed, STATUS_LABEL, toneFor, TYPE_LABEL } from '../../utils/format';
+import { DataBadge } from '../ui/DataBadge';
 import { VehicleArt } from '../ui/primitives';
 
 export function SelectionDrawer({ side = 'right', offset = 16, exclude = [] }: { side?: 'left' | 'right'; offset?: number; exclude?: string[] }) {
@@ -37,7 +38,7 @@ export function SelectionDrawer({ side = 'right', offset = 16, exclude = [] }: {
         <>
           <div className="drawer-head">
             <div>
-              <div className="eyebrow">{TYPE_LABEL[v.type]} · {c.routeCode}</div>
+              <div className="eyebrow">{TYPE_LABEL[v.type]} · {c.routeCode} <DataBadge kind="SIMULATED" title="Demo vehicle — position and telemetry are simulated" /></div>
               <h2>{v.label}</h2>
               <div className="muted" style={{ fontSize: 12, marginTop: 2 }}>Simulated update {clock(v.lastUpdate || s.minute, true)}</div>
             </div>
@@ -87,7 +88,7 @@ export function SelectionDrawer({ side = 'right', offset = 16, exclude = [] }: {
         <>
           <div className="drawer-head">
             <div>
-              <div className="eyebrow">{i.id} · {i.type}</div>
+              <div className="eyebrow">{i.id} · {i.type} <DataBadge kind="SIMULATED" title="Fictional demo incident at a real location" /></div>
               <h2 style={{ fontSize: 19, lineHeight: 1.25 }}>{i.title}</h2>
               <div className="muted" style={{ fontSize: 12, marginTop: 4 }}>{i.locationName} · started {clock(i.startedAt)} ({ago(s.minute, i.startedAt)})</div>
             </div>
@@ -136,12 +137,13 @@ export function SelectionDrawer({ side = 'right', offset = 16, exclude = [] }: {
             <div>
               <div className="eyebrow">Corridor · {c.routeCode}</div>
               <h2>{c.name}</h2>
-              <div className="muted" style={{ fontSize: 12, marginTop: 2 }}>{c.from} → {c.to} · {s.geometrySource[c.id] === 'osrm' ? 'road geometry via OSRM' : 'approximate waypoint geometry'}</div>
+              <div className="muted" style={{ fontSize: 12, marginTop: 2 }}>{c.from} → {c.to}</div>
+              <div className="source-note" style={{ marginTop: 4 }}>{geometryNote(s.geometrySource[c.id], s.geometryRetrievedAt[c.id])}</div>
             </div>
             <button className="icon-btn" onClick={close} aria-label="Close details"><X size={16} /></button>
           </div>
           <div className="facts">
-            <div className="fact"><div className="k">Congestion (sim.)</div><div className="v" style={{ color: congestionColor(st.congestion) }}>{st.congestion.toFixed(0)}/100 · {congestionLevel(st.congestion)}</div></div>
+            <div className="fact"><div className="k">Congestion <DataBadge kind="SIMULATED" /></div><div className="v" style={{ color: congestionColor(st.congestion) }}>{st.congestion.toFixed(0)}/100 · {congestionLevel(st.congestion)}</div></div>
             <div className="fact"><div className="k">Avg speed</div><div className="v">{st.avgSpeed.toFixed(0)} km/h</div></div>
             <div className="fact"><div className="k">Travel time</div><div className="v">{st.travelMinutes.toFixed(0)} min</div></div>
             <div className="fact"><div className="k">Free-flow</div><div className="v">{c.freeFlowMinutes} min</div></div>
@@ -154,7 +156,7 @@ export function SelectionDrawer({ side = 'right', offset = 16, exclude = [] }: {
               <div style={{ marginTop: 4, lineHeight: 1.5 }}>
                 {est.altMinutes.toFixed(0)} min vs {est.baseMinutes.toFixed(0)} min baseline →{' '}
                 <b className={est.savingMinutes > 0 ? 'ok-t' : 'warn-t'}>{est.savingMinutes > 0 ? `${est.savingMinutes.toFixed(1)} min faster` : `${Math.abs(est.savingMinutes).toFixed(1)} min slower`}</b>
-                <div className="source-note" style={{ marginTop: 4 }}>Demo estimate from simulated travel times.</div>
+                <div className="source-note" style={{ marginTop: 4 }}><DataBadge kind="SIMULATED" /> Assumption-based comparison of simulated travel times — not a measured saving.</div>
               </div>
             </div>
           )}
