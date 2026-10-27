@@ -20,6 +20,7 @@ export const NAV: { id: ViewId; label: string }[] = [
   { id: 'incidents', label: 'Incidents' },
   { id: 'maintenance', label: 'Maintenance' },
   { id: 'operations', label: 'Operations' },
+  { id: 'data', label: 'Data' },
 ];
 
 const MAP_VIEWS: ViewId[] = ['live', 'fleet', 'routes', 'incidents'];
